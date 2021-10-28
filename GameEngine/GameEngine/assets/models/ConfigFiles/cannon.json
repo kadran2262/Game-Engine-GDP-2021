@@ -1,0 +1,8 @@
+{
+  "Cannon": {
+    "MaxYaw": 89.0,
+    "MinYaw": 5.0,
+    "MaxPitch": 45.0,
+    "MinPitch": -45.0
+  }
+}
