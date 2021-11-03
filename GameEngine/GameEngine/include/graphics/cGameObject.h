@@ -34,28 +34,23 @@ struct sCannonDef
 	float YawSpeed;
 };
 
-enum eShapeTypes
-	{
-		AABB,					// min and max corners 
-		SPHERE,					// Radius
-		CAPSULE,
-		PLANE,
-		MESH,		// Triangle test
-		UNKNOWN
-	};
 
 struct sGameObjectDef {
 	sGameObjectDef() :
 		ModelColor(1.f, 1.f, 1.f, 1.f),
 		Position(0.0f, 0.0f, 0.0f),
 		Rotation(0.0f, 0.0f, 0.0f),
-		Scale(1.f, 1.f, 1.f)
+		Scale(1.f, 1.f, 1.f),
+		Visible(true),
+		Wireframe(false)
 	{}
 	std::string Mesh;
 	glm::vec4 ModelColor;
 	glm::vec3 Position;
 	glm::vec3 Rotation;
 	glm::vec3 Scale;
+	bool Visible;
+	bool Wireframe;
 
 };
 
@@ -71,11 +66,16 @@ public:
 	inline glm::vec4 GetModelColour() { return mModelColour; }
 	inline cMesh* GetMesh() { return mMesh; }
 	inline std::string GetMeshName() { return mMeshName; }
+	inline bool GetVisible() { return mVisible; }
+	inline bool GetWirefram() { return mWireframe; }
 	unsigned int GetUniqueID(void);
 
 	bool SetMesh(const std::string& meshName);
 	void SetModelMatrix(const glm::mat4& matrix);
 	void SetModelColour(const glm::vec4& colour);
+
+	inline void SetVisible(bool visible) { mVisible = visible; }
+	inline void SetWireframe(bool wireframe) { mWireframe = wireframe; }
 
 	//void setDebugRenderer(iDebugRenderer* pDebugRenderer);
 
@@ -89,6 +89,8 @@ private:
 	glm::vec4 mModelColour;
 	cMesh* mMesh;
 	std::string mMeshName;
+	bool mVisible;
+	bool mWireframe;
 	//iDebugRenderer* m_pDebugRenderer;
 };
 

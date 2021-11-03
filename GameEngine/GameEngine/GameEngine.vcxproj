@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Extern\glad\glad.c" />
+    <ClCompile Include="src\FileLoader\cFileLoader.cpp" />
     <ClCompile Include="src\graphics\camera\cCamera.cpp" />
     <ClCompile Include="src\graphics\cGameObject.cpp" />
     <ClCompile Include="src\graphics\lights\cLightHelper.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="src\UserInput.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\FileLoader\cFileLoader.h" />
     <ClInclude Include="include\graphics\cGameObject.h" />
     <ClInclude Include="include\GLCommon.h" />
     <ClInclude Include="include\graphics\camera\cCamera.h" />
@@ -197,6 +199,9 @@
     <ClInclude Include="include\physics\projectiles\Firework.h" />
     <ClInclude Include="include\physics\projectiles\Laser.h" />
     <ClInclude Include="include\random_helpers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\configfiles\models.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

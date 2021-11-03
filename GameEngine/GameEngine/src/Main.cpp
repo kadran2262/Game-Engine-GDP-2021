@@ -2,7 +2,7 @@
 #include <physics/projectiles/Bullet.h>
 #include <physics/particle/cParticleWorld.h>
 #include <iostream>
-
+#include <FileLoader/cFileLoader.h>
 
 
 bool firstMouse = true;
@@ -74,20 +74,29 @@ int main() {
 
 #pragma region Create GameObjects
 
+
+	JSONFile file("assets/configfiles/models.json");
+
 	sGameObjectDef terrainObjectDef;
-	terrainObjectDef.Mesh = "terrain";
-	glm::set(terrainObjectDef.ModelColor, 0.5f, 0.5f, 0.0f, 1.0f);
-	glm::set(terrainObjectDef.Position, 0.0f, 0.0f, 0.0f);
-	glm::set(terrainObjectDef.Scale, 1.0f, 1.0f, 1.0f);
+	terrainObjectDef.Mesh = file.GetStringFromJSON("meshname");
+	terrainObjectDef.Rotation = file.GetVec3FromJSON("rotation");
+	terrainObjectDef.ModelColor = file.GetVec4FromJSON("modelcolour");
+	terrainObjectDef.Position = file.GetVec3FromJSON("position");
+	terrainObjectDef.Scale = file.GetVec3FromJSON("scale");
 	terrainObject = new cGameObject(terrainObjectDef);
 
+	file.GetNextObject();
+
 	sGameObjectDef cannonObjectDef;
-	cannonObjectDef.Mesh = "cannon";
-	glm::set(cannonObjectDef.ModelColor, 1.0f, 1.0f, 1.0f, 1.0f);
-	glm::set(cannonObjectDef.Position, 0.0f, 0.0f, 0.0f);
-	glm::set(cannonObjectDef.Scale, 5.0f, 5.0f, 5.0f);
+	cannonObjectDef.Mesh = file.GetStringFromJSON("meshname");
+	cannonObjectDef.Mesh = file.GetStringFromJSON("meshname");
+	cannonObjectDef.Rotation = file.GetVec3FromJSON("rotation");
+	cannonObjectDef.ModelColor = file.GetVec4FromJSON("modelcolour");
+	cannonObjectDef.Position = file.GetVec3FromJSON("position");
+	cannonObjectDef.Scale = file.GetVec3FromJSON("scale");
 	cannonObject = new cGameObject(cannonObjectDef);
 
+	file.GetNextObject();
 
 	sGameObjectDef sphereObjectDef;
 	sphereObjectDef.Mesh = "sphere";
@@ -116,7 +125,8 @@ int main() {
 
 	float fpsFrameCount = 0.f;
 	float fpsTimeElapsed = 0.f;
-
+	
+	glm::vec4 clear_color = glm::vec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	while (!nGraphics::WindowShouldClose()) {
 
@@ -143,7 +153,12 @@ int main() {
 
 		glfwGetFramebufferSize(nGraphics::gWindow, &windowWidth, &windowHeight);
 		glViewport(0, 0, windowWidth, windowHeight);
-
+		
+		
+		//sets the background colour
+		glClearColor(clear_color.x * clear_color.w, 
+					 clear_color.y * clear_color.w, 
+					 clear_color.z * clear_color.w, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		particleWorld->TimeStep(deltaTime);

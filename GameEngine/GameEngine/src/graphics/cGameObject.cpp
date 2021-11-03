@@ -66,8 +66,6 @@
 	//}
 
 
-
-
 	// this variable is static, so common to all objects.
 	// When the object is created, the unique ID is set, and 
 	//	the next unique ID is incremented
