@@ -201,6 +201,8 @@
     <ClInclude Include="include\random_helpers.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\configfiles\camera.json" />
+    <None Include="assets\configfiles\meshes.json" />
     <None Include="assets\configfiles\models.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -24,7 +24,13 @@
 		mModelMatrix = glm::scale(mModelMatrix, def.Scale);
 		mModelColour = def.ModelColor;
 		
-
+		mFriendlyName = def.FriendlyName;
+		mVisible = def.Visible;
+		mWireframe = def.Wireframe;
+		
+		mRotation = def.Rotation;
+		mPosition = def.Position;
+		mScale = def.Scale;
 
 		this->m_uniqueID = this->next_uniqueID;
 		this->next_uniqueID++;
@@ -65,6 +71,25 @@
 	//	return;
 	//}
 
+
+	void cGameObject::MoveObject(const glm::vec3& movement) {
+		
+		glm::vec3 newPos = mPosition + movement;
+		mPosition = newPos;
+
+		mModelMatrix = glm::eulerAngleXYZ(mRotation.x, mRotation.y, mRotation.z);
+		mModelMatrix = glm::translate(mModelMatrix, newPos);
+		mModelMatrix = glm::scale(mModelMatrix, mScale);
+	}
+	void cGameObject::RotateObject(const glm::vec3& rotation) {
+
+		glm::vec3 newRotation = mRotation + rotation;
+		mRotation = newRotation;
+
+		mModelMatrix = glm::eulerAngleXYZ(newRotation.x, newRotation.y, newRotation.z);
+		mModelMatrix = glm::translate(mModelMatrix, mPosition);
+		mModelMatrix = glm::scale(mModelMatrix, mScale);
+	}
 
 	// this variable is static, so common to all objects.
 	// When the object is created, the unique ID is set, and 

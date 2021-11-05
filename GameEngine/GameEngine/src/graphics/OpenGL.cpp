@@ -1,11 +1,14 @@
 #include <graphics/OpenGL.h>
 #include <iostream>
 
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 extern int windowWidth;
 extern int windowHeight;
+extern std::vector<cGameObject*> gameObjects;;
+extern std::vector<cGameObject*>::iterator selectedGameObject;
 
 namespace nGraphics {
 	//globals
@@ -62,19 +65,23 @@ namespace nGraphics {
 //uniform bool bDoNotLight;
 		GLint debugColour_UL = glGetUniformLocation(gShader->GetProgramId(), "debugColour");
 		GLint bDoNotLight_UL = glGetUniformLocation(gShader->GetProgramId(), "bDoNotLight");
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);		// LINES
-		//glUniform4f(debugColour_UL,
-		//	pCurrentObject->GetModelColour().r,// R
-		//	pCurrentObject->GetModelColour().g,// G
-		//	pCurrentObject->GetModelColour().b,// B
-		//	pCurrentObject->GetModelColour().a);
-		//glUniform1f(bDoNotLight_UL, (float)GL_TRUE);
-		
-		{	// Regular object (lit and not wireframe)
+		//if (pCurrentObject->GetWirefram())
+		//{
+		//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);		// LINES
+		//	glUniform4f(debugColour_UL,
+		//		pCurrentObject->GetModelColour().r,
+		//		pCurrentObject->GetModelColour().g,
+		//		pCurrentObject->GetModelColour().b,
+		//		pCurrentObject->GetModelColour().a);
+		//		
+		//	glUniform1f(bDoNotLight_UL, (float)GL_TRUE);
+		//}
+		//
+		//else{	// Regular object (lit and not wireframe)
 			
 			glUniform1f(bDoNotLight_UL, (float)GL_FALSE);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);			// SOLID
-		}
+		//}
 		
 
 		
@@ -117,7 +124,6 @@ namespace nGraphics {
 	{
 		fprintf(stderr, "Error: %s\n", description);
 	}
-
 
 	bool Init() {
 

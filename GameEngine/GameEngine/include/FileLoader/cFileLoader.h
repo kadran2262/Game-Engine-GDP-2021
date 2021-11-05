@@ -2,6 +2,8 @@
 
 #include <rapidjson/document.h>
 #include <rapidjson/filereadstream.h>
+#include "rapidjson/filewritestream.h"
+#include <rapidjson/writer.h>
 #include <GLCommon.h>
 
 #include <string>
@@ -22,6 +24,10 @@ public:
 	glm::vec3 GetVec3FromJSON(string value);
 	glm::vec4 GetVec4FromJSON(string value);
 	string GetStringFromJSON(string value);
+
+
+	bool SaveJSONFile(string filename);
+
 	bool GetNextObject();
 
 };

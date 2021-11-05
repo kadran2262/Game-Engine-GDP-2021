@@ -45,6 +45,7 @@ struct sGameObjectDef {
 		Wireframe(false)
 	{}
 	std::string Mesh;
+	std::string FriendlyName;
 	glm::vec4 ModelColor;
 	glm::vec3 Position;
 	glm::vec3 Rotation;
@@ -64,18 +65,30 @@ public:
 
 	inline glm::mat4 GetModelMatrix() { return mModelMatrix; }
 	inline glm::vec4 GetModelColour() { return mModelColour; }
+	inline glm::vec3 GetScale() { return mScale; }
+	inline glm::vec3 GetPosition() { return mPosition; }
+	inline glm::vec3 GetRotation() { return mRotation; }
 	inline cMesh* GetMesh() { return mMesh; }
 	inline std::string GetMeshName() { return mMeshName; }
+	inline std::string GetFriendlyName() { return mFriendlyName; }
 	inline bool GetVisible() { return mVisible; }
 	inline bool GetWirefram() { return mWireframe; }
+
+
 	unsigned int GetUniqueID(void);
+
+
 
 	bool SetMesh(const std::string& meshName);
 	void SetModelMatrix(const glm::mat4& matrix);
 	void SetModelColour(const glm::vec4& colour);
+	inline void SetFriendlyName(const std::string friendlyName) { mFriendlyName = friendlyName; }
+	inline void SetVisible(const bool visible) { mVisible = visible; }
+	inline void SetWireframe(const bool wireframe) { mWireframe = wireframe; }
 
-	inline void SetVisible(bool visible) { mVisible = visible; }
-	inline void SetWireframe(bool wireframe) { mWireframe = wireframe; }
+
+	void MoveObject(const glm::vec3& movement);
+	void RotateObject(const glm::vec3& rotation);
 
 	//void setDebugRenderer(iDebugRenderer* pDebugRenderer);
 
@@ -87,8 +100,12 @@ private:
 	unsigned int m_uniqueID;
 	glm::mat4 mModelMatrix;
 	glm::vec4 mModelColour;
+	glm::vec3 mScale;
+	glm::vec3 mPosition;
+	glm::vec3 mRotation;
 	cMesh* mMesh;
 	std::string mMeshName;
+	std::string mFriendlyName;
 	bool mVisible;
 	bool mWireframe;
 	//iDebugRenderer* m_pDebugRenderer;
